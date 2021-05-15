@@ -4,8 +4,10 @@
     "clean": "rm -rf dist out",
     "compile": "javac --source-path src $(find . -name *.java) -d out",
     "compile:dev": "npm run compile && chokidar \"src/**/*.java\" -c \"javac --source-path src {path} -d out\"",
-    "pack": "rm -rf dist && mkdir dist && jar cvfe dist/$(cat package.json | jq -r .jar).jar Main -C ./out .",
-    "start": "java -jar dist/$(cat package.json | jq -r .jar).jar",
+    "pack:client": "rm -rf dist/*_client.jar && mkdir -p dist && jar cvfe dist/$(cat package.json | jq -r .jar)_client.jar client.Main -C ./out shared -C ./out client",
+    "pack:server": "rm -rf dist/*_server.jar && mkdir -p dist && jar cvfe dist/$(cat package.json | jq -r .jar)_server.jar server.Main -C ./out shared -C ./out server",
+    "start:client": "java -jar dist/$(cat package.json | jq -r .jar)_client.jar",
+    "start:server": "java -jar dist/$(cat package.json | jq -r .jar)_server.jar",
     "start:dev": "java -cp out Main"
   },
   "devDependencies": {
