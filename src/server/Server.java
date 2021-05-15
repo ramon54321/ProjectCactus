@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Server {
 
+  private Thread listenerThread;
   private ServerSocket serverSocket;
 
   private List<Client> clients = new ArrayList<>();
@@ -15,15 +16,21 @@ public class Server {
   Server() {}
 
   public void start() {
-    try {
-      this.serverSocket = new ServerSocket(4444);
-      while (true) {
-        this.waitForClient();
+    Server self = this;
+    this.listenerThread = new Thread() {
+      public void run() {
+        try {
+          self.serverSocket = new ServerSocket(4444);
+          while (true) {
+            self.waitForClient();
+          }
+        } catch (Exception e) {
+          System.out.println("Exception handled in Server");
+          System.out.println(e);
+        }
       }
-    } catch (Exception e) {
-      System.out.println("Exception handled in Server");
-      System.out.println(e);
-    }
+    };
+    this.listenerThread.start();
   }
 
   private void waitForClient() throws IOException {
@@ -35,6 +42,7 @@ public class Server {
 
   public void shutdown() {
     try {
+      this.listenerThread.interrupt();
       this.clients.forEach(client -> client.interrupt());
       this.serverSocket.close();
     } catch (Exception e) {
