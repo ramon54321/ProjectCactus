@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "src/client",
+			"name": "Client"
+		},
+		{
+			"path": "src/server",
+			"name": "Server"
+		},
+		{
+			"path": "src/shared",
+			"name": "Shared"
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.referencedLibraries": [
+			"libs/**/*.jar"
+		]
+	}
+}
