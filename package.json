@@ -1,0 +1,14 @@
+{
+  "jar": "cactus",
+  "scripts": {
+    "clean": "rm -rf dist out",
+    "compile": "javac --source-path src $(find . -name *.java) -d out",
+    "compile:dev": "npm run compile && chokidar \"src/**/*.java\" -c \"javac --source-path src {path} -d out\"",
+    "pack": "rm -rf dist && mkdir dist && jar cvfe dist/$(cat package.json | jq -r .jar).jar Main -C ./out .",
+    "start": "java -jar dist/$(cat package.json | jq -r .jar).jar",
+    "start:dev": "java -cp out Main"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^2.1.0"
+  }
+}
