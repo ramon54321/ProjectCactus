@@ -8,7 +8,8 @@
     "pack:server": "rm -rf dist/*_server.jar && mkdir -p dist && jar cvfe dist/$(cat package.json | jq -r .jar)_server.jar server.Main -C ./out shared -C ./out server",
     "start:client": "java -jar dist/$(cat package.json | jq -r .jar)_client.jar",
     "start:server": "java -jar dist/$(cat package.json | jq -r .jar)_server.jar",
-    "start:dev": "java -cp out Main"
+    "start:client:dev": "java -cp out client.Main",
+    "start:server:dev": "java -cp out server.Main"
   },
   "devDependencies": {
     "chokidar-cli": "^2.1.0"
