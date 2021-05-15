@@ -1,9 +1,12 @@
 package client;
 
-import shared.Adder;
+import shared.Threading;
 
 public class Main {
+
   public static void main(String[] args) {
-    System.out.println("Client" + Adder.add(5, 2));
+    Client client = new Client();
+    client.start();
+    Threading.registerShutdownHook();
   }
 }
